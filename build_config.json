@@ -1,0 +1,86 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1beta1",
+  "labels": {
+    "template": "zookeeper"
+  },
+  "metadata": {
+    "annotations": {
+      "description": "Example of replicated Zookeeper 3.4.6 server",
+      "tags": "database,zookeeper",
+      "iconClass" : "icon-database"
+    },
+    "name": "zookeeper"
+  },
+  "items":[
+    
+    {
+      "apiVersion": "v1beta1",
+      "kind": "ImageStream",
+      "metadata": {
+        "name": "jboss-base-jdk"
+      },
+      "spec": {
+        "dockerImageRepository": "jboss/base-jdk:7"
+      }
+    },
+    {
+      "apiVersion": "v1beta1",
+      "kind": "ImageStream",
+      "metadata": {
+        "name": "origin-zookeeper-sample"
+      }
+    },
+
+    {
+      "apiVersion": "v1beta1",
+      "kind": "BuildConfig",
+      "metadata": {
+        "name": "zookeeper",
+        "labels": {
+          "name": "zookeeper"
+        }
+      },
+      "parameters": {
+        "output": {
+          "to": {
+            "name": "origin-zookeeper-sample"
+          }
+        },
+        "source": {
+          "git": {
+            "uri": "https://github.com/goraxe/openshift-origin-zookeeper-example.git"
+          },
+          "type": "Git"
+        },
+        "strategy": {
+          "type": "Docker",
+          "dockerStrategy": {
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "jboss-base-jdk:7"
+            }
+          }
+        }
+      },
+      "triggers": [
+        {
+          "github": {
+            "secret": "secret101"
+          },
+          "type": "github"
+        },
+        {
+          "generic": {
+            "secret": "secret101"
+          },
+          "type": "generic"
+        },
+        {
+          "imageChange": {},
+          "type": "imageChange"
+        }
+      ]
+    }
+  ]
+}

@@ -222,7 +222,7 @@
           "containers": [
             {
               "name": "server",
-              "image": "${ZOOKEEPER_IMAGE}",
+              "image": "origin-zookeeper-sample",
               "env":[
                 { "name": "SERVER_ID", "value": "1" }
               ],
@@ -256,7 +256,7 @@
           "containers": [
             {
               "name": "server",
-              "image": "${ZOOKEEPER_IMAGE}",
+              "image": "origin-zookeeper-sample",
               "env":[
                 { "name": "SERVER_ID", "value": "2" }
               ],
@@ -290,7 +290,7 @@
           "containers": [
             {
               "name": "server",
-              "image": "${ZOOKEEPER_IMAGE}",
+              "image": "origin-zookeeper-sample",
               "env":[
                 { "name": "SERVER_ID", "value": "3" }
               ],
